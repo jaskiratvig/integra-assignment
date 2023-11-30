@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Users</h2>
+    <table id="usersTable">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Department</th>
+        </tr>
+    </table>
+
+    <script>
+        fetch('/users')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('usersTable');
+                data.forEach(user => {
+                    let row = table.insertRow();
+                    let id = row.insertCell(0);
+                    let username = row.insertCell(1);
+                    let firstName = row.insertCell(2);
+                    let lastName = row.insertCell(3);
+                    let email = row.insertCell(4);
+                    let status = row.insertCell(5);
+                    let department = row.insertCell(6);
+
+                    id.innerHTML = user.id;
+                    username.innerHTML = user.user_name;
+                    firstName.innerHTML = user.first_name;
+                    lastName.innerHTML = user.last_name;
+                    email.innerHTML = user.email;
+                    status.innerHTML = user.user_status;
+                    department.innerHTML = user.department;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
